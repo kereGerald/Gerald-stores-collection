@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerald Networks</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header {
+            width: 100%;
+            background: linear-gradient(135deg, #1e3a8a, #0c4a6e);
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header .title {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .header .subtitle {
+            font-size: 14px;
+            margin-top: 5px;
+            opacity: 0.8;
+        }
+
+        .info-section {
+            width: 100%;
+            padding: 20px;
+            background-color: #e0f2fe;
+        }
+
+        .info-section h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 0;
+            color: #0c4a6e;
+        }
+
+        .info-section ol {
+            padding-left: 20px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .info-section li {
+            margin-bottom: 5px;
+        }
+
+        .customer-care {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .customer-care a {
+            display: inline-block;
+            background-color: #2563eb;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+
+        .customer-care a:hover {
+            background-color: #1d4ed8;
+        }
+
+        .packages-section, .number-input-section {
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .packages-section h2, .number-input-section h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 20px;
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .package-card {
+            background-color: #1e3a8a;
+            color: #fff;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .package-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .package-card .duration {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .package-card .price {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .package-card .status {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .footer-note {
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .reconnect-button {
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .reconnect-button button {
+            background-color: #1e3a8a;
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+
+        .reconnect-button button:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* Number Input Form Styles */
+        #numberInputForm {
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: #f9fafb;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #numberInputForm p {
+            font-size: 14px;
+            margin-bottom: 15px;
+            color: #666;
+        }
+
+        #numberInputForm input {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        #numberInputForm button {
+            background-color: #2563eb;
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #numberInputForm button:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #f87171, #ef4444);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+            width: 80%;
+            max-width: 350px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .modal-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .close-button {
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 0 5px;
+        }
+
+        .modal-body p {
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            margin: 15px 0;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .modal-buttons button {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .modal-buttons .no-button {
+            background-color: #6b7280;
+            color: white;
+        }
+
+        .modal-buttons .no-button:hover {
+            background-color: #4b5563;
+        }
+
+        .modal-buttons .yes-button {
+            background-color: #22c55e;
+            color: white;
+        }
+
+        .modal-buttons .yes-button:hover {
+            background-color: #16a34a;
+        }
+
+        /* Waiting Modal Styles */
+        .waiting-modal-content {
+            background: linear-gradient(135deg, #f87171, #ef4444);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+            width: 80%;
+            max-width: 350px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .waiting-modal-content .modal-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .waiting-modal-content h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .waiting-modal-content .modal-body {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .waiting-modal-content .modal-body p:first-child {
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .waiting-modal-content .waiting-loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .waiting-modal-content .modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .waiting-modal-content .modal-buttons button {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .waiting-modal-content .modal-buttons .cancel-button {
+            background-color: #6b7280;
+            color: white;
+        }
+        
+        .waiting-modal-content .modal-buttons .waiting-button {
+            background-color: #22c55e;
+            color: white;
+        }
+
+        /* Spinner Modal */
+        .spinner-modal-content {
+            background: linear-gradient(135deg, #f87171, #ef4444);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            color: white;
+        }
+
+        .spinner-modal-content .spinner-graphic {
+            width: 70px;
+            height: 70px;
+            animation: spin 1.5s linear infinite;
+        }
+
+        /* New Reconnect Modal */
+        .reconnect-modal-content {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+            width: 80%;
+            max-width: 350px;
+            text-align: center;
+            position: relative;
+        }
+
+        .reconnect-modal-content h3 {
+            color: #1e3a8a;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .reconnect-modal-content input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .reconnect-modal-content .reconnect-buttons {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .reconnect-modal-content .reconnect-buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .reconnect-modal-content .reconnect-buttons .cancel-button {
+            background-color: #6b7280;
+            color: white;
+        }
+
+        .reconnect-modal-content .reconnect-buttons .check-code-button {
+            background-color: #22c55e;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="main-container">
+    <div class="header">
+        <h1 class="title">Gerald Networks</h1>
+        <p class="subtitle">Sign in to Gerald WiFi Hotspot</p>
+    </div>
+
+    <div class="info-section">
+        <h3>How To Purchase:-</h3>
+        <ol>
+            <li>Choose your preferred package.</li>
+            <li>Enter your phone number</li>
+            <li>Click "PAY NOW"</li>
+            <li>Enter your m-pesa pin, wait for 30sec for mpesa authentication.</li>
+        </ol>
+        <div class="customer-care">
+            <a href="tel:0799573979">CUSTOMER CARE:0799573979</a>
+        </div>
+    </div>
+
+    <div class="packages-section" id="packagesSection">
+        <h2>Our Packages</h2>
+        <p class="subtitle">Subscribe to one of our available Packages.</p>
+        <div class="packages-grid">
+            <div class="package-card" data-duration="1 Hour" data-price="5">
+                <div class="duration">1 Hour</div>
+                <div class="price">Kes. 5</div>
+                <div class="status">Unlimited</div>
+            </div>
+             <div class="package-card" data-duration="3 Hours" data-price="10">
+                <div class="duration">3 Hours</div>
+                <div class="price">Kes. 10</div>
+                <div class="status">Unlimited</div>
+            </div>
+            <div class="package-card" data-duration="12 Hours" data-price="20">
+                <div class="duration">12 Hours</div>
+                <div class="price">Kes. 20</div>
+                <div class="status">Unlimited</div>
+            </div>
+            <div class="package-card" data-duration="3 Days" data-price="120">
+                <div class="duration">3 days</div>
+                <div class="price">Kes. 120</div>
+                <div class="status">Unlimited</div>
+            </div>
+            <div class="package-card" data-duration="1 Week" data-price="150">
+                <div class="duration">1 Week</div>
+                <div class="price">Kes. 150</div>
+                <div class="status">Unlimited</div>
+            </div>
+            <div class="package-card" data-duration="24 Hours" data-price="40">
+                <div class="duration">24 Hours</div>
+                <div class="price">Kes. 40</div>
+                <div class="status">Unlimited</div>
+            </div>
+            <div class="package-card" data-duration="2 Days" data-price="80">
+                <div class="duration">2 Days</div>
+                <div class="price">Kes. 80</div>
+                <div class="status">Unlimited</div>
+            </div>
+           
+            <div class="package-card" data-duration="1 Month" data-price="500">
+                <div class="duration">1 Month</div>
+                <div class="price">Kes.500</div>
+                <div class="status">Unlimited</div>
+            </div>
+           
+            <div class="package-card" data-duration="2 Weeks" data-price="400">
+                <div class="duration">2 Weeks</div>
+                <div class="price">Kes. 400</div>
+                <div class="status">Unlimited</div>
+            </div>
+            <div class="package-card" data-duration="Daily" data-price="100">
+                <div class="duration">5 GB</div>
+                <div class="price">Kes. 100</div>
+                <div class="status">Unlimited</div>
+            </div>
+            <div class="package-card" data-duration="2 Devices" data-price="1000">
+                <div class="duration">2 Devices</div>
+                <div class="price">Kes. 1000</div>
+                <div class="status">Unlimited</div>
+            </div>
+            <div class="package-card" data-duration="3 Devices" data-price="1200">
+                <div class="duration">3 Devices</div>
+                <div class="price">Kes. 1200</div>
+                <div class="status">Unlimited</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="number-input-section" id="numberInputSection" style="display: none;">
+        <h2>Enter Phone Number</h2>
+        <p>Please enter your M-Pesa phone number to proceed.</p>
+        <div id="numberInputForm">
+            <input type="tel" id="phoneNumberInput" placeholder="e.g., 7123456789" required>
+            <button id="proceedToPayButton">Proceed to Pay</button>
+        </div>
+    </div>
+
+    <div class="footer-note">
+        
+    </div>
+
+    <div class="reconnect-button">
+        <button id="reconnectButton">Reconnect with Mpesa Code</button>
+    </div>
+</div>
+
+<div id="reconnectModal" class="modal">
+    <div class="reconnect-modal-content">
+        <span class="close-button" id="closeReconnectModal">&times;</span>
+        <h3>Reconnect with Mpesa Code</h3>
+        <p>Enter your Mpesa Transaction Code</p>
+        <input type="text" id="transactionCodeInput" placeholder="e.g. TIM3123F7">
+        <div class="reconnect-buttons">
+            <button class="cancel-button" id="reconnectCancelButton">Cancel</button>
+            <button class="check-code-button" id="checkCodeButton">Check Code</button>
+        </div>
+    </div>
+</div>
+
+<div id="purchaseModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Complete purchase</h3>
+            <span class="close-button" id="closePurchaseModal">&times;</span>
+        </div>
+        <div class="modal-body">
+            <p id="purchaseMessage"></p>
+            <p>On phone number: <span id="confirmPhoneNumber" style="color:#d8b4fe; font-weight:bold;"></span></p>
+        </div>
+        <div class="modal-buttons">
+            <button class="no-button" id="noButton">No</button>
+            <button class="yes-button" id="yesButton">Yes</button>
+        </div>
+    </div>
+</div>
+
+<div id="spinnerModal" class="modal">
+    <div class="spinner-modal-content">
+        <div class="spinner-graphic">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="45" fill="none" stroke="#ccc" stroke-width="8"></circle>
+                <circle cx="50" cy="50" r="45" fill="none" stroke="#2563eb" stroke-width="8" stroke-dasharray="282.743" stroke-dashoffset="0">
+                    <animate attributeName="stroke-dashoffset" from="282.743" to="0" dur="0.5s" repeatCount="indefinite"></animate>
+                </circle>
+            </svg>
+        </div>
+    </div>
+</div>
+
+<div id="waitingModal" class="modal">
+    <div class="waiting-modal-content">
+        <div class="modal-header">
+            <h3>Complete purchase</h3>
+            <span class="close-button" id="closeWaitingModal">&times;</span>
+        </div>
+        <div class="modal-body">
+            <p id="waitingMessage"></p>
+            <div class="waiting-loader"></div>
+            <p>You will receive a Mpesa prompt requesting a payment of <span id="paymentAmount"></span> on the phone number <span id="finalPhoneNumber" style="color:#d8b4fe; font-weight:bold;"></span></p>
+        </div>
+        <div class="modal-buttons">
+            <button class="cancel-button" id="cancelButton">Cancel</button>
+            <button class="Pay Now-button" id="Pay Now Button">Pay Now..</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Get all page elements
+    const packagesSection = document.getElementById('packagesSection');
+    const numberInputSection = document.getElementById('numberInputSection');
+    const phoneNumberInput = document.getElementById('phoneNumberInput');
+    const proceedToPayButton = document.getElementById('proceedToPayButton');
+    const reconnectButton = document.getElementById('reconnectButton');
+    const transactionCodeInput = document.getElementById('transactionCodeInput');
+    const checkCodeButton = document.getElementById('checkCodeButton');
+
+    // Get all modals and buttons
+    const purchaseModal = document.getElementById('purchaseModal');
+    const reconnectModal = document.getElementById('reconnectModal');
+    const spinnerModal = document.getElementById('spinnerModal');
+    const waitingModal = document.getElementById('waitingModal');
+    const packageCards = document.querySelectorAll('.package-card');
+    const closePurchaseModalButton = document.getElementById('closePurchaseModal');
+    const closeReconnectModalButton = document.getElementById('closeReconnectModal');
+    const closeWaitingModalButton = document.getElementById('closeWaitingModal');
+    const yesButton = document.getElementById('yesButton');
+    const noButton = document.getElementById('noButton');
+    const reconnectCancelButton = document.getElementById('reconnectCancelButton');
+    const cancelButton = document.getElementById('cancelButton');
+    
+    // Get all text elements
+    const purchaseMessage = document.getElementById('purchaseMessage');
+    const confirmPhoneNumber = document.getElementById('confirmPhoneNumber');
+    const waitingMessage = document.getElementById('waitingMessage');
+    const paymentAmount = document.getElementById('paymentAmount');
+    const finalPhoneNumber = document.getElementById('finalPhoneNumber');
+
+    let selectedPackage = {};
+
+    // Function to show the number input section
+    function showNumberInputSection(duration, price) {
+        packagesSection.style.display = 'none';
+        numberInputSection.style.display = 'block';
+        selectedPackage = { duration, price };
+    }
+
+    // Function to show the purchase modal
+    function showPurchaseModal(duration, price, number) {
+        purchaseMessage.innerHTML = `Do you wish to Purchase <span style="color:#d8b4fe; font-weight:bold;">${duration.toUpperCase()} UNLIMITED INTERNET @${price}/-?</span>`;
+        confirmPhoneNumber.textContent = number;
+        purchaseModal.style.display = 'flex';
+        purchaseModal.dataset.duration = duration;
+        purchaseModal.dataset.price = price;
+        purchaseModal.dataset.number = number;
+    }
+
+    // Function to show the waiting modal
+    function showWaitingModal(duration, price, number) {
+        waitingMessage.innerHTML = `Do you wish to Purchase <span style="color:#d8b4fe; font-weight:bold;">${duration.toUpperCase()} UNLIMITED INTERNET @${price}/-?</span>`;
+        paymentAmount.textContent = `Ksh.${price}`;
+        finalPhoneNumber.textContent = number;
+        waitingModal.style.display = 'flex';
+    }
+
+    // Add click listeners to each package card
+    packageCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const duration = card.getAttribute('data-duration');
+            const price = card.getAttribute('data-price');
+            showNumberInputSection(duration, price);
+        });
+    });
+
+    // Handle "Proceed to Pay" button click
+    proceedToPayButton.addEventListener('click', () => {
+        const number = phoneNumberInput.value.trim();
+        if (number) {
+            numberInputSection.style.display = 'none';
+            showPurchaseModal(selectedPackage.duration, selectedPackage.price, number);
+        } else {
+            alert('Please enter a valid phone number.');
+        }
+    });
+
+    // Handle "Reconnect" button click
+    reconnectButton.addEventListener('click', () => {
+        reconnectModal.style.display = 'flex';
+    });
+
+    // Handle "Check Code" button click on the reconnect modal
+    checkCodeButton.addEventListener('click', () => {
+        const transactionCode = transactionCodeInput.value.trim();
+        if (transactionCode) {
+            alert(`Checking transaction code: ${transactionCode}. This would connect you to the network.`);
+            reconnectModal.style.display = 'none';
+        } else {
+            alert('Please enter a transaction code.');
+        }
+    });
+
+    // Handle "Yes" button click on the purchase modal
+    yesButton.addEventListener('click', () => {
+        const duration = purchaseModal.dataset.duration;
+        const price = purchaseModal.dataset.price;
+        const number = purchaseModal.dataset.number;
+
+        // Hide purchase modal and show spinner modal
+        purchaseModal.style.display = 'none';
+        spinnerModal.style.display = 'flex';
+
+        // Simulate a delay (e.g., 3 seconds) before showing the waiting modal
+        setTimeout(() => {
+            spinnerModal.style.display = 'none';
+            showWaitingModal(duration, price, number);
+        }, 3000); // 3000 milliseconds = 3 seconds
+    });
+
+    // Handle "No" button click on the purchase modal
+    noButton.addEventListener('click', () => {
+        purchaseModal.style.display = 'none';
+        packagesSection.style.display = 'block';
+        numberInputSection.style.display = 'none';
+    });
+    
+    // Handle "Cancel" button click on the waiting modal
+    cancelButton.addEventListener('click', () => {
+        waitingModal.style.display = 'none';
+        packagesSection.style.display = 'block';
+        numberInputSection.style.display = 'none';
+    });
+
+    // Handle "Cancel" button on reconnect modal
+    reconnectCancelButton.addEventListener('click', () => {
+        reconnectModal.style.display = 'none';
+    });
+
+    // Handle closing modals with the 'X' button
+    closePurchaseModalButton.addEventListener('click', () => {
+        purchaseModal.style.display = 'none';
+        packagesSection.style.display = 'block';
+        numberInputSection.style.display = 'none';
+    });
+    
+    closeReconnectModalButton.addEventListener('click', () => {
+        reconnectModal.style.display = 'none';
+    });
+    
+    closeWaitingModalButton.addEventListener('click', () => {
+        waitingModal.style.display = 'none';
+        packagesSection.style.display = 'block';
+        numberInputSection.style.display = 'none';
+    });
+
+    // Close modals by clicking outside of them
+    window.addEventListener('click', (event) => {
+        if (event.target == purchaseModal) {
+            purchaseModal.style.display = 'none';
+            packagesSection.style.display = 'block';
+            numberInputSection.style.display = 'none';
+        }
+        if (event.target == waitingModal) {
+            waitingModal.style.display = 'none';
+            packagesSection.style.display = 'block';
+            numberInputSection.style.display = 'none';
+        }
+        if (event.target == reconnectModal) {
+            reconnectModal.style.display = 'none';
+        }
+    });
+</script>
+
+</body>
+</html>
